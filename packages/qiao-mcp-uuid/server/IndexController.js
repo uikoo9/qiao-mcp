@@ -1,5 +1,5 @@
 // mcp
-const { startHttpServer } = require('./mcp.js');
+const { startHttpServer } = require('../util/mcp.js');
 
 /**
  * aws controller

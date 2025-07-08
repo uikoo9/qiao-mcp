@@ -1,5 +1,6 @@
 // mcp
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { z } from 'zod';
 
@@ -57,5 +58,23 @@ export const startHttpServer = async (req, res) => {
       },
       id: null,
     });
+  }
+};
+
+/**
+ * startStdioServer
+ */
+export const startStdioServer = async () => {
+  try {
+    // server
+    const server = getServer();
+
+    // transport
+    const transport = new StdioServerTransport();
+
+    // go
+    await server.connect(transport);
+  } catch (error) {
+    console.error('Error handling MCP request:', error);
   }
 };

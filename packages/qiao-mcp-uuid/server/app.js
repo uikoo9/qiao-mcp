@@ -1,10 +1,6 @@
-// options
-const options = {
-  cros: true,
-};
-
-// init
 (async () => {
-  const app = await require('qiao-z')(options);
+  const app = await require('qiao-z')({
+    cros: true,
+  });
   app.listen(7001);
 })();

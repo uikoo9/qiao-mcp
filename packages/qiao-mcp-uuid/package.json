@@ -5,11 +5,14 @@
   "author": "uikoo9 <uikoo9@qq.com>",
   "homepage": "https://code.vincentqiao.com/#qiao-mcp-uuid",
   "license": "MIT",
-  "main": "index.js",
-  "module": "src/index.js",
-  "sideEffets": false,
+  "bin": {
+    "qiao-mcp-uuid": "./bin/index.js"
+  },
   "files": [
-    "src"
+    "bin",
+    "server",
+    "src",
+    "util"
   ],
   "repository": {
     "type": "git",

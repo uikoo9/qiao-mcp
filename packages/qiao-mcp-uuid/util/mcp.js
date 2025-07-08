@@ -1,6 +1,7 @@
 'use strict';
 
 var mcp_js = require('@modelcontextprotocol/sdk/server/mcp.js');
+var stdio_js = require('@modelcontextprotocol/sdk/server/stdio.js');
 var streamableHttp_js = require('@modelcontextprotocol/sdk/server/streamableHttp.js');
 var zod = require('zod');
 var uuid = require('uuid');
@@ -61,4 +62,23 @@ const startHttpServer = async (req, res) => {
   }
 };
 
+/**
+ * startStdioServer
+ */
+const startStdioServer = async () => {
+  try {
+    // server
+    const server = getServer();
+
+    // transport
+    const transport = new stdio_js.StdioServerTransport();
+
+    // go
+    await server.connect(transport);
+  } catch (error) {
+    console.error('Error handling MCP request:', error);
+  }
+};
+
 exports.startHttpServer = startHttpServer;
+exports.startStdioServer = startStdioServer;

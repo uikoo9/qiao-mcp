@@ -4,7 +4,7 @@
 module.exports = {
   input: 'src/index.js',
   output: {
-    file: 'server/mcp.js',
+    file: 'util/mcp.js',
     format: 'cjs',
   },
   external: [
