@@ -7,28 +7,36 @@ var uuid = require('uuid');
 
 // mcp
 
+function getServer() {
+  // server
+  const server = new mcp_js.McpServer({
+    name: 'qiao-mcp-uuid',
+    version: '0.0.1',
+  });
+  server.registerTool(
+    'uuid',
+    {
+      title: 'UUID Tool',
+      description: 'return a uuid string',
+      inputSchema: { message: zod.z.string() },
+    },
+    async () => ({
+      content: [{ type: 'text', text: uuid.v4() }],
+    }),
+  );
+
+  // r
+  return server;
+}
+
 /**
- * startServer
+ * startHttpServer
  * @returns
  */
-const startServer = async (req, res) => {
+const startHttpServer = async (req, res) => {
   try {
     // server
-    const server = new mcp_js.McpServer({
-      name: 'qiao-mcp-uuid',
-      version: '0.0.1',
-    });
-    server.registerTool(
-      'uuid',
-      {
-        title: 'UUID Tool',
-        description: 'return a uuid string',
-        inputSchema: { message: zod.z.string() },
-      },
-      async () => ({
-        content: [{ type: 'text', text: uuid.v4() }],
-      }),
-    );
+    const server = getServer();
 
     // transport
     const transport = new streamableHttp_js.StreamableHTTPServerTransport({
@@ -53,4 +61,4 @@ const startServer = async (req, res) => {
   }
 };
 
-exports.startServer = startServer;
+exports.startHttpServer = startHttpServer;

@@ -6,28 +6,36 @@ import { z } from 'zod';
 // uuid
 import { v4 as uuidv4 } from 'uuid';
 
+function getServer() {
+  // server
+  const server = new McpServer({
+    name: 'qiao-mcp-uuid',
+    version: '0.0.1',
+  });
+  server.registerTool(
+    'uuid',
+    {
+      title: 'UUID Tool',
+      description: 'return a uuid string',
+      inputSchema: { message: z.string() },
+    },
+    async () => ({
+      content: [{ type: 'text', text: uuidv4() }],
+    }),
+  );
+
+  // r
+  return server;
+}
+
 /**
- * startServer
+ * startHttpServer
  * @returns
  */
-export const startServer = async (req, res) => {
+export const startHttpServer = async (req, res) => {
   try {
     // server
-    const server = new McpServer({
-      name: 'qiao-mcp-uuid',
-      version: '0.0.1',
-    });
-    server.registerTool(
-      'uuid',
-      {
-        title: 'UUID Tool',
-        description: 'return a uuid string',
-        inputSchema: { message: z.string() },
-      },
-      async () => ({
-        content: [{ type: 'text', text: uuidv4() }],
-      }),
-    );
+    const server = getServer();
 
     // transport
     const transport = new StreamableHTTPServerTransport({
