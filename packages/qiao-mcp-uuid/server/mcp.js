@@ -1,19 +1,20 @@
-// mcp
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
-import { z } from 'zod';
+'use strict';
 
-// uuid
-import { v4 as uuidv4 } from 'uuid';
+var mcp_js = require('@modelcontextprotocol/sdk/server/mcp.js');
+var streamableHttp_js = require('@modelcontextprotocol/sdk/server/streamableHttp.js');
+var zod = require('zod');
+var uuid = require('uuid');
+
+// mcp
 
 /**
  * startServer
  * @returns
  */
-export const startServer = async (req, res) => {
+const startServer = async (req, res) => {
   try {
     // server
-    const server = new McpServer({
+    const server = new mcp_js.McpServer({
       name: 'qiao-mcp-uuid',
       version: '0.0.1',
     });
@@ -22,15 +23,15 @@ export const startServer = async (req, res) => {
       {
         title: 'UUID Tool',
         description: 'return a uuid string',
-        inputSchema: { message: z.string() },
+        inputSchema: { message: zod.z.string() },
       },
       async () => ({
-        content: [{ type: 'text', text: uuidv4() }],
+        content: [{ type: 'text', text: uuid.v4() }],
       }),
     );
 
     // transport
-    const transport = new StreamableHTTPServerTransport({
+    const transport = new streamableHttp_js.StreamableHTTPServerTransport({
       sessionIdGenerator: undefined,
     });
     await server.connect(transport);
@@ -51,3 +52,5 @@ export const startServer = async (req, res) => {
     });
   }
 };
+
+exports.startServer = startServer;

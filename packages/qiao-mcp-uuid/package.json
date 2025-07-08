@@ -16,7 +16,14 @@
     "url": "git+https://github.com/uikoo9/qiao-mcp.git"
   },
   "scripts": {
-    "build": "qpro rollup ./rollup.config.js"
+    "build": "qpro rollup ./rollup.config.js",
+    "start": "node server/app.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.15.0",
+    "qiao-z": "^5.5.4",
+    "uuid": "^11.1.0",
+    "zod": "^3.25.75"
   },
   "nx": {
     "namedInputs": {
@@ -30,7 +37,7 @@
           "default"
         ],
         "outputs": [
-          "{projectRoot}/index.js"
+          "{projectRoot}/server/index.js"
         ]
       }
     }
